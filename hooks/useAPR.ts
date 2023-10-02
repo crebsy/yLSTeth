@@ -32,7 +32,7 @@ function useAPR(): number {
 		const [, streamingAmount, unlockedAmount] = data;
 		const _streamingAmount = toNormalizedBN(streamingAmount);
 		const _unlockedAmount = toNormalizedBN(unlockedAmount);
-		const secondInYear = 31_536_000;
+		const secondInYear = 31_557_600; // 365.25 days
 		const secondLeftInWeek = calculateSecondLeftInWeek();
 		const _estimatedAPR = Number(_streamingAmount.normalized) * secondInYear / secondLeftInWeek / Number(_unlockedAmount.normalized);
 		return _estimatedAPR * 100;
