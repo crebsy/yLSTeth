@@ -12,9 +12,17 @@ function useAPR(): number {
 	});
 
 	const calculateSecondLeftInWeek = (): number => {
-		const secondInWeek = 604800;
-		const currentTimestamp = Math.floor(Date.now() / 1000);
-		return secondInWeek - currentTimestamp % secondInWeek;
+		const d = new Date();
+		const start = d.getDate() - d.getDay();
+		const end = start + 6;
+
+		const startDate = new Date(d.setDate(start));
+		const endDate = new Date(d.setDate(end));
+		endDate.setHours(23);
+		endDate.setMinutes(59);
+		endDate.setSeconds(59);
+
+		return (endDate.getTime() - startDate.getTime()) / 1000;
 	};
 
 	const estimatedAPR = useMemo((): number => {
